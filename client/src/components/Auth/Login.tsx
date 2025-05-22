@@ -7,7 +7,7 @@ import { getLoginError } from '~/utils';
 import { useLocalize } from '~/hooks';
 import LoginForm from './LoginForm';
 import SocialButton from '~/components/Auth/SocialButton';
-import { OpenIDIcon } from '~/components';
+import { OpenIDIcon, WeComIcon } from '~/components'; // Assuming WeComIcon is exported from index.ts in components
 
 function Login() {
   const localize = useLocalize();
@@ -84,6 +84,21 @@ function Login() {
           setError={setError}
         />
       )}
+
+      {startupConfig?.socialLoginEnabled === true && startupConfig?.wecomLoginEnabled === true && (
+        <div className="my-4 flex flex-col items-center">
+          <SocialButton
+            key="wecom"
+            enabled={startupConfig.wecomLoginEnabled}
+            serverDomain={startupConfig.serverDomain}
+            oauthPath="wecom"
+            Icon={WeComIcon}
+            label={startupConfig.wecomLabel || 'Login with WeCom'}
+            id="wecom"
+          />
+        </div>
+      )}
+
       {startupConfig?.registrationEnabled === true && (
         <p className="my-4 text-center text-sm font-light text-gray-700 dark:text-white">
           {' '}

@@ -84,6 +84,37 @@ registration:
   # allowedDomains:
   # - "gmail.com"
 
+# WeCom (WeChat Work) Login Configuration (Optional)
+# Enables user authentication via WeCom's OAuth 2.0 interface.
+# Details for these settings are typically found in your WeCom Admin Console
+# under the settings for your self-built (custom) application.
+
+# WECOM_LOGIN_ENABLED: false
+# Purpose: Controls whether the WeCom login option is displayed to users.
+# Effect: Set to `true` to enable WeCom login, `false` to disable.
+
+# WECOM_CORP_ID: "your_corp_id_here"
+# Purpose: The unique identifier for your corporation in WeCom.
+# How to obtain: Found in your WeCom Admin Console (e.g., under "My Company" -> "Company Information").
+
+# WECOM_AGENT_ID: "your_agent_id_here"
+# Purpose: The identifier for your specific self-built application within WeCom that will be used for authentication.
+# How to obtain: Found in the settings of your self-built application in the WeCom Admin Console.
+
+# WECOM_SECRET: "your_app_secret_here"
+# Purpose: The secret key for your self-built application, used to authenticate your application with WeCom.
+# How to obtain: Found in the settings of your self-built application in the WeCom Admin Console. Treat this like a password.
+
+# WECOM_CALLBACK_URL: "/oauth/wecom/callback"
+# Purpose: The URL to which WeCom will redirect users after they have successfully authenticated.
+# Important: This URL *must* exactly match one of the "Authorized Callback Domains" or "OAuth redirect URIs"
+#            configured in your self-built application's settings in the WeCom Admin Console.
+#            It's typically `${DOMAIN_SERVER}/oauth/wecom/callback`.
+
+# WECOM_LABEL: "Login with WeCom"
+# Purpose: The text displayed on the WeCom login button.
+# Optional: If not provided, a default label "Login with WeCom" will be used.
+
 
 # Example Balance settings
 # balance:

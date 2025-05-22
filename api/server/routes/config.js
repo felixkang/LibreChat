@@ -59,6 +59,8 @@ router.get('/', async function (req, res) {
       openidLabel: process.env.OPENID_BUTTON_LABEL || 'Continue with OpenID',
       openidImageUrl: process.env.OPENID_IMAGE_URL,
       openidAutoRedirect: isEnabled(process.env.OPENID_AUTO_REDIRECT),
+      wecomLoginEnabled: isEnabled(process.env.WECOM_LOGIN_ENABLED),
+      wecomLabel: process.env.WECOM_LABEL || 'Login with WeCom',
       serverDomain: process.env.DOMAIN_SERVER || 'http://localhost:3080',
       emailLoginEnabled,
       registrationEnabled: !ldap?.enabled && isEnabled(process.env.ALLOW_REGISTRATION),

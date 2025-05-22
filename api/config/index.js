@@ -93,4 +93,12 @@ module.exports = {
   getMCPManager,
   createAxiosInstance,
   getFlowStateManager,
+  wecom: {
+    corpId: process.env.WECOM_CORP_ID,
+    agentId: process.env.WECOM_AGENT_ID,
+    secret: process.env.WECOM_SECRET,
+    callbackUrl: process.env.WECOM_CALLBACK_URL,
+    loginEnabled: process.env.WECOM_LOGIN_ENABLED === 'true',
+    label: process.env.WECOM_LABEL || 'Login with WeCom',
+  },
 };
