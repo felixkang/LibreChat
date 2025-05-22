@@ -179,4 +179,44 @@ router.post(
   oauthHandler,
 );
 
+/**
+ * WeChat Work Routes
+ */
+if (process.env.WECHATWORK_CORPID && process.env.WECHATWORK_AGENTID && process.env.WECHATWORK_SECRET && process.env.WECHATWORK_CALLBACK_URL) {
+  const wechatWorkScope = process.env.WECHATWORK_SCOPE ? process.env.WECHATWORK_SCOPE.split(',') : ['snsapi_base']; // Default to snsapi_base if not set
+
+  router.get(
+    // The login path should be distinct, e.g., /oauth/wechatwork, to match conventions if any.
+    // Or, if strategies/index.js defines strategyItem.routes.login, use that.
+    // For now, using a simple path, assuming it will be linked correctly from the client.
+    // The strategy file itself defines its callbackURL but not necessarily the initial login trigger path.
+    // Let's make it consistent with others: /oauth/wechatwork
+    '/wechatwork', // Consistent with /google, /github etc.
+    passport.authenticate('wechatwork', {
+      scope: wechatWorkScope,
+      session: false,
+      // state: 'YOUR_STATE_VALUE', // Optional: If you need to pass a specific state
+      // agentid: process.env.WECHATWORK_AGENTID, // agentid is part of the authorizationURL in strategy
+    }),
+  );
+
+  router.get(
+    // The callback URL path MUST match exactly what's configured in WECHATWORK_CALLBACK_URL
+    // and what WeChat Work redirects to.
+    // Example: if WECHATWORK_CALLBACK_URL is '/auth/wechatwork/callback', this must be the same.
+    // We assume WECHATWORK_CALLBACK_URL is the path part, e.g., /oauth/wechatwork/callback
+    new URL(process.env.DOMAIN_SERVER + process.env.WECHATWORK_CALLBACK_URL).pathname,
+    passport.authenticate('wechatwork', {
+      failureRedirect: `${domains.client}/oauth/error`, // Consistent failure redirect
+      failureMessage: true,
+      session: false,
+    }),
+    setBalanceConfig, // Consistent with other oauth routes
+    oauthHandler,     // Use the common handler for success
+  );
+  logger.info('[WeChatWork] WeChat Work OAuth routes configured.');
+} else {
+  logger.info('[WeChatWork] WeChat Work OAuth routes not configured due to missing environment variables.');
+}
+
 module.exports = router;

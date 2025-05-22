@@ -1,4 +1,4 @@
-import { GoogleIcon, FacebookIcon, OpenIDIcon, GithubIcon, DiscordIcon, AppleIcon } from '~/components';
+import { GoogleIcon, FacebookIcon, OpenIDIcon, GithubIcon, DiscordIcon, AppleIcon, WeChatWorkIcon } from '~/components'; // Added WeChatWorkIcon
 
 import SocialButton from './SocialButton';
 
@@ -88,6 +88,17 @@ function SocialLoginRender({
         }
         label={startupConfig.openidLabel}
         id="openid"
+      />
+    ),
+    wechatwork: startupConfig.wechatworkLoginEnabled && ( // Assuming wechatworkLoginEnabled will be part of startupConfig
+      <SocialButton
+        key="wechatwork"
+        enabled={startupConfig.wechatworkLoginEnabled}
+        serverDomain={startupConfig.serverDomain}
+        oauthPath="wechatwork" // This will result in /oauth/wechatwork
+        Icon={WeChatWorkIcon}
+        label={localize('com_auth_wechatwork_login')}
+        id="wechatwork"
       />
     ),
   };

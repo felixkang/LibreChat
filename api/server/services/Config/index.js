@@ -6,6 +6,7 @@ const loadDefaultModels = require('./loadDefaultModels');
 const getEndpointsConfig = require('./getEndpointsConfig');
 const loadOverrideConfig = require('./loadOverrideConfig');
 const loadAsyncEndpoints = require('./loadAsyncEndpoints');
+const getLogins = require('./getLogins'); // Import the new login config
 
 module.exports = {
   config,
@@ -16,4 +17,5 @@ module.exports = {
   loadAsyncEndpoints,
   ...getCustomConfig,
   ...getEndpointsConfig,
+  ...getLogins, // Spread the login configurations (socialLogins array and individual flags)
 };
